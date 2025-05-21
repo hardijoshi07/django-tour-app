@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Package Form</title>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles.css' %}">
+</head>
+<body>
+    
+    <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Package</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'package_list' %}">Back to List</a>
+</body>
+</html>

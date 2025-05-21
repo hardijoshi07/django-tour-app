@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tour Packages</title>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles.css' %}">
+</head>
+<body>
+    <h1>All Tour Packages</h1>
+    <a href="{% url 'add_package' %}">Add New Package</a>
+    <ul>
+        {% for pkg in packages %}
+        <li>
+            <strong>{{ pkg.title }}</strong> - ₹{{ pkg.price }} ({{ pkg.duration }}) in {{ pkg.location }}<br>
+            <a href="{% url 'edit_package' pkg.pk %}">Edit</a> |
+            <a href="{% url 'delete_package' pkg.pk %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

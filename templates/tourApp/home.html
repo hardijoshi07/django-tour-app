@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tour Packages</title>
+
+</head>
+<body>
+    <h1>All Tour Packages</h1>
+    <a href="{% url 'add_package' %}">Add New Package</a>
+    <ul>
+        {% for pkg in packages %}
+            <li>
+                <strong>{{ pkg.name }}</strong> - {{ pkg.location }} (₹{{ pkg.price }})
+                <br>{{ pkg.description }}
+                <br><small>{{ pkg.start_date }} to {{ pkg.end_date }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
