@@ -1,22 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tour Packages</title>
-    {% load static %}
-
-    <link rel="stylesheet" type="text/css" href="{% static 'static/styles.css' %}">
+    <title>All Tour Packages</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>All Tour Packages</h1>
-    <a href="{% url 'add_package' %}">Add New Package</a>
-    <ul>
+    <div class="container">
+        <h1>All Tour Packages</h1>
+        <a class="add-link" href="{% url 'add_package' %}">Add New Package</a>
+
         {% for pkg in packages %}
-        <li>
-            <strong>{{ pkg.title }}</strong> - ₹{{ pkg.price }} ({{ pkg.duration }}) in {{ pkg.location }}<br>
-            <a href="{% url 'edit_package' pkg.pk %}">Edit</a> |
-            <a href="{% url 'delete_package' pkg.pk %}">Delete</a>
-        </li>
+        <div class="package-card">
+            <strong>{{ pkg.title }}</strong> - ₹{{ pkg.price }} ({{ pkg.duration }})<br>
+            {{ pkg.description }}<br>
+            Location: {{ pkg.location }}
+            <div class="actions">
+                <a href="{% url 'edit_package' pkg.id %}">Edit</a>
+                <a href="{% url 'delete_package' pkg.id %}">Delete</a>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>

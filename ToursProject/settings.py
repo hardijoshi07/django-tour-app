@@ -69,6 +69,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ToursProject.wsgi.application'
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

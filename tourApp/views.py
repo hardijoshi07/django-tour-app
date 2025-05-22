@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import TourPackage
 from .forms import TourPackageForm
@@ -11,6 +12,12 @@ def tour_package_list(request):
 def home(request):
     packages = TourPackage.objects.all()
     return render(request, 'tourApp/home.html', {'packages': packages})
+
+def view_packages(request):
+    packages = TourPackage.objects.all()
+    context = {'packages': packages}
+    return render(request, 'tourApp/package_list.html', context)
+
 
 def add_package(request):
     if request.method == 'POST':
@@ -36,13 +43,13 @@ def add_package(request):
         form = TourPackageForm()
     return render(request, 'tourApp/add_package.html', {'form': form})
 
-def edit_package(request, pk):
-    package = get_object_or_404(TourPackage, pk=pk)
+def edit_package(request, id):
+    package = get_object_or_404(TourPackage, id=id)
     if request.method == 'POST':
         form = TourPackageForm(request.POST, instance=package)
         if form.is_valid():
             form.save()
-            return redirect('package_list')
+            return redirect('view_packages')
     else:
         form = TourPackageForm(instance=package)
     return render(request, 'tourApp/edit_package.html', {'form': form})
