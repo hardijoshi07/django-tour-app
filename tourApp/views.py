@@ -1,35 +1,16 @@
-from multiprocessing import context
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import TourPackage
 from .forms import TourPackageForm
-
-# Create your views here.
-
-def tour_package_list(request):
-    packages = TourPackage.objects.prefetch_related('itineraries').all()
-    return render(request, 'tourApp/tour_package_list.html', {'packages': packages})
 
 def home(request):
     packages = TourPackage.objects.all()
     return render(request, 'tourApp/home.html', {'packages': packages})
 
+def tour_package_list(request):
+    packages = TourPackage.objects.prefetch_related('itineraries').all()
+    return render(request, 'tour_package_list.html', {'packages': packages})  # updated path
+
 def view_packages(request):
-    packages = TourPackage.objects.all()
-    context = {'packages': packages}
-    return render(request, 'tourApp/package_list.html', context)
-
-
-def add_package(request):
-    if request.method == 'POST':
-        form = TourPackageForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = TourPackageForm()
-    return render(request, 'tourApp/add_package.html', {'form': form})
-
-def package_list(request):
     packages = TourPackage.objects.all()
     return render(request, 'tourApp/package_list.html', {'packages': packages})
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Packages</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .package { border: 1px solid #ccc; border-radius: 8px; margin: 20px 0; padding: 15px; }
+        img { width: 100%; max-width: 400px; height: auto; }
+        .itinerary { margin-top: 10px; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Available Tour Packages</h1>
+    {% for package in packages %}
+        <div class="package">
+            <h2>{{ package.title }}</h2>
+            <img src="{{ package.featured_image.url }}" alt="{{ package.title }}">
+            <p><strong>Location:</strong> {{ package.location }}</p>
+            <p><strong>Duration:</strong> {{ package.duration }}</p>
+            <p><strong>Price:</strong> ₹{{ package.price }}</p>
+            <p>{{ package.description }}</p>
+
+            <div class="itinerary">
+                <h3>Itinerary</h3>
+                {% for item in package.itineraries.all %}
+                    <div>
+                        <strong>Day {{ item.day_number }} - {{ item.title }}</strong><br>
+                        {{ item.description }}<br>
+                        <em>Meals: 
+                            {% if item.breakfast %} Breakfast {% endif %}
+                            {% if item.lunch %} Lunch {% endif %}
+                            {% if item.dinner %} Dinner {% endif %}
+                        </em><br>
+                        <strong>Transport:</strong> {{ item.transportation }}<br>
+                        <strong>Attractions:</strong> {{ item.attractions }}
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
